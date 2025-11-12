@@ -6,6 +6,7 @@
 ![PyQt6](https://img.shields.io/badge/GUI-PyQt6-orange)
 ![Platform](https://img.shields.io/badge/OS-Windows%20%7C%20Linux%20%7C%20macOS-informational)
 ![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
@@ -111,11 +112,6 @@ PortProcess_killer/
 ├── README.md               # Diese Datei
 └── portkillericon.png      # (Optional) Programm-Icon
 ```
-
----
-
-## 🪪 Lizenz
-
 
 ---
 
