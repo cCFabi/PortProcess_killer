@@ -11,13 +11,12 @@ from PyQt6.QtGui import QIcon, QIntValidator
 
 import psutil
 
-ICON_PATH = 'portkillericon.png'  # relative oder absolut
+ICON_PATH = 'portkillericon.png'
 
 class PortKiller(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Port Killer")
-        # <- Icon korrekt setzen (falls vorhanden)
         if os.path.exists(ICON_PATH):
             self.setWindowIcon(QIcon(ICON_PATH))
 
@@ -31,8 +30,8 @@ class PortKiller(QWidget):
         self.port_input.setPlaceholderText("z. B. 8080")
         self.port_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.port_input.setMaxLength(5)
-        self.port_input.setValidator(QIntValidator(1, 65535, self))  # nur gültige Ports zulassen
-        self.port_input.returnPressed.connect(self.on_kill_clicked)   # Enter = Klick
+        self.port_input.setValidator(QIntValidator(1, 65535, self))
+        self.port_input.returnPressed.connect(self.on_kill_clicked)
 
         self.kill_button = QPushButton("Kill")
         self.kill_button.clicked.connect(self.on_kill_clicked)
@@ -82,7 +81,6 @@ class PortKiller(QWidget):
 
     def find_listening_pids(self, port: int) -> Set[int]:
         pids = set()
-        # Schneller globaler Scan (kann erhöhte Rechte brauchen)
         try:
             for conn in psutil.net_connections(kind='inet'):
                 try:
@@ -96,7 +94,6 @@ class PortKiller(QWidget):
                 except Exception:
                     continue
         except psutil.AccessDenied:
-            # Fallback: pro Prozess iterieren
             for proc in psutil.process_iter(attrs=["pid"]):
                 try:
                     for c in proc.connections(kind='inet'):
@@ -157,7 +154,6 @@ class PortKiller(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    # Optional: App-weites Icon (falls vorhanden)
     if os.path.exists(ICON_PATH):
         app.setWindowIcon(QIcon(ICON_PATH))
     w = PortKiller()
@@ -166,4 +162,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
